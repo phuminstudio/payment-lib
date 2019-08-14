@@ -1,0 +1,14 @@
+{
+    "name": "phuminstudio/payment-client",
+    "type": "library",
+    "require": {
+        "php": "^5.3",
+        "phpseclib/phpseclib": "^2.0"
+    },
+    "authors": [
+        {
+            "name": "Phumin Chanthalert",
+            "email": "phoomin009@gmail.com"
+        }
+    ]
+}
