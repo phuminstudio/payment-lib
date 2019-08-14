@@ -1,5 +1,5 @@
 {
-    "name": "phuminstudio/payment-client",
+    "name": "phuminstudio/payment-lib",
     "type": "library",
     "require": {
         "php": "^5.3",

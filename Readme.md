@@ -1,5 +1,5 @@
 # How to install
-`composer install phuminstudio/payment`
+`composer require phuminstudio/payment-lib`
 
 # Example use
 ```php
