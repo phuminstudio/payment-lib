@@ -27,10 +27,12 @@ class Payment
     private $wallet_password;
     private $wallet_reference;
 
-    public function __construct($private_key, $public_key)
+    public function __construct($private_key, $public_key, $debug = null)
     {
         $this->private_key = $private_key;
         $this->public_key = $public_key;
+        if($debug)
+            $this->apiURL = "http://localhost:8000/";
     }
 
     private function connect($url, $data = array())
