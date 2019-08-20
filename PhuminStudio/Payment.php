@@ -10,7 +10,7 @@ class Payment
     private $private_key;
     private $public_key;
 
-    private $apiURL = "http://localhost:8000/";
+    private $apiURL = "https://payment.phumin.in.th/";
 
     // Kbank setting
     private $kbank_username;
@@ -37,6 +37,8 @@ class Payment
     {
         $data['public_key'] = $this->public_key;
 
+        $url = $this->apiURL . $url;
+
         $ch = curl_init();
         curl_setopt($ch, CURLOPT_URL, $url);
         curl_setopt($ch, CURLOPT_POST, 1);
@@ -58,7 +60,7 @@ class Payment
     }
 
     private function returnResponse($response) {
-        return json_decode($response);
+        return json_decode($response, true);
     }
 
     public function kbankSetting($username, $password, $account) {
@@ -102,6 +104,58 @@ class Payment
 
         return $this->connect("api/statement/check/scb", array(
             "gateway" => "scb",
+            "date" => $date,
+            "month" => $month,
+            "year" => $year,
+            "hour" => $hour,
+            "minute" => $minute,
+            "amount" => $amount,
+            "data" => $data,
+            "callback" => $callback,
+        ));
+    }
+
+    public function bblSetting($username, $password, $account) {
+        $this->scb_username = $username;
+        $this->scb_password = $password;
+        $this->scb_account = str_replace("-", "", $account);
+    }
+
+    public function bblCheck($date, $month, $year, $hour, $minute, $amount, $callback = false) {
+        $data = $this->encryptData(array(
+            "username" => $this->scb_username,
+            "password" => $this->scb_password,
+            "account" => $this->scb_account,
+        ));
+
+        return $this->connect("api/statement/check/bbl", array(
+            "gateway" => "bbl",
+            "date" => $date,
+            "month" => $month,
+            "year" => $year,
+            "hour" => $hour,
+            "minute" => $minute,
+            "amount" => $amount,
+            "data" => $data,
+            "callback" => $callback,
+        ));
+    }
+
+    public function baySetting($username, $password, $account) {
+        $this->scb_username = $username;
+        $this->scb_password = $password;
+        $this->scb_account = str_replace("-", "", $account);
+    }
+
+    public function bayCheck($date, $month, $year, $hour, $minute, $amount, $callback = false) {
+        $data = $this->encryptData(array(
+            "username" => $this->scb_username,
+            "password" => $this->scb_password,
+            "account" => $this->scb_account,
+        ));
+
+        return $this->connect("api/statement/check/bay", array(
+            "gateway" => "bay",
             "date" => $date,
             "month" => $month,
             "year" => $year,
