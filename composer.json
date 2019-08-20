@@ -2,7 +2,7 @@
     "name": "phuminstudio/payment-lib",
     "type": "library",
     "require": {
-        "php": "^5.3",
+        "php": ">=5.3",
         "phpseclib/phpseclib": "^2.0"
     },
     "authors": [
