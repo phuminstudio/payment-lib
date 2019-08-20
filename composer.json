@@ -1,6 +1,11 @@
 {
     "name": "phuminstudio/payment-lib",
     "type": "library",
+    "autoload": {
+        "psr-0": {
+          "phuminstudio": "src\\"
+        }
+    },
     "require": {
         "php": ">=5.3.3",
         "phpseclib/phpseclib": "^2.0"
