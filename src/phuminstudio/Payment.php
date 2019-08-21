@@ -2,6 +2,7 @@
 
 namespace phuminstudio;
 
+use Exception;
 use phpseclib\Crypt\AES;
 
 class Payment
@@ -31,8 +32,12 @@ class Payment
     {
         $this->private_key = $private_key;
         $this->public_key = $public_key;
-        if($debug)
+        if($debug === true)
             $this->apiURL = "http://localhost:8000/";
+    }
+    
+    public function setApiURL($url) {
+        $this->apiURL = $url;
     }
 
     private function connect($url, $data = array())
@@ -46,10 +51,16 @@ class Payment
         curl_setopt($ch, CURLOPT_POST, 1);
         curl_setopt($ch, CURLOPT_POSTFIELDS, http_build_query($data));
         curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($ch, CURLOPT_TIMEOUT, 30);
 
         $output = curl_exec($ch);
-        curl_close($ch);
 
+        if ($output === false) {
+            $error = curl_error($ch);
+            throw new Exception($error);
+        }
+
+        curl_close($ch);
         return $this->returnResponse($output);
     }
 
