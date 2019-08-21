@@ -2,7 +2,7 @@
     "name": "phuminstudio/payment-lib",
     "type": "library",
     "autoload": {
-        "psr-4": {
+        "psr-0": {
           "phuminstudio": "src\\"
         }
     },
